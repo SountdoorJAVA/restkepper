@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="" title=""/>
+     <tree path="/restkeeper_service/restkeeper_service_common/src/main/java/com/restkeeper/mybatis/GeneralMetaObjectHandler.java"
+           title="通用字段处理类" extension="java"/>
+     <tree path="/restkeeper_service/restkeeper_operator/src/main/java/com/restkeeper/operator/service" title="业务层"/>
+     <tree path="/restkeeper_web/restkeeper_operator_web/src/main/java/com/restkeeper/operator/controller" title="表现层"/>
+     <tree path="/restkeeper_web/restkeeper_operator_web/src/main/java/com/restkeeper/operator/vo" title="视图对象"/>
+     <tree path="/restkeeper_web/restkeeper_operator_web/src/main/java/com/restkeeper/operator/controller/EnterpriseAccountController.java"
+           title="企业账户表现层" extension="java"/>
+ </trees>
