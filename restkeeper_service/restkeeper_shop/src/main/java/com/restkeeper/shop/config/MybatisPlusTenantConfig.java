@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 /**
+ * 每次调用sql会调用
+ *
  * @author MORRIS --> Java
  * @date 2022-12-11 23:59:36
  */
