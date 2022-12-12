@@ -7,10 +7,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Maps;
+import com.restkeeper.constants.SystemCode;
 import com.restkeeper.operator.config.RabbitMQConfig;
 import com.restkeeper.operator.entity.EnterpriseAccount;
 import com.restkeeper.operator.mapper.EnterpriseAccountMapper;
 import com.restkeeper.sms.SmsObject;
+import com.restkeeper.utils.*;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -21,6 +24,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 /**
  * @author MORRIS --> Java
  * @date 2022-12-11 16:25:10
@@ -30,6 +36,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class EnterpriseAccountServiceImpl extends ServiceImpl<EnterpriseAccountMapper, EnterpriseAccount> implements IEnterpriseAccountService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Value("${gateway.secret}")
+    private String secret;
 
     @Value("${sms.operator.signName}")
     private String signName;
@@ -116,6 +125,66 @@ public class EnterpriseAccountServiceImpl extends ServiceImpl<EnterpriseAccountM
             throw ex;
         }
         return flag;
+    }
+
+    //登录
+    @Override
+    public Result login(String shopId, String phone, String loginPass) {
+        Result result = new Result();
+        //参数校验
+        if (StringUtils.isEmpty(shopId)) {
+            result.setStatus(ResultCode.error);
+            result.setDesc("商户号未输入");
+            return result;
+        }
+        if (StringUtils.isEmpty(phone)) {
+            result.setStatus(ResultCode.error);
+            result.setDesc("手机号未输入");
+            return result;
+        }
+        if (StringUtils.isEmpty(loginPass)) {
+            result.setStatus(ResultCode.error);
+            result.setDesc("密码未输入");
+            return result;
+        }
+        //查询用户信息
+        QueryWrapper<EnterpriseAccount> qw = new QueryWrapper<>();
+        //qw.eq("phone", phone); //硬编码不推荐
+        qw.lambda().eq(EnterpriseAccount::getPhone, phone)
+                .eq(EnterpriseAccount::getShopId, shopId)
+                .notIn(EnterpriseAccount::getStatus, AccountStatus.Forbidden.getStatus());
+        EnterpriseAccount enterpriseAccount = this.getOne(qw);
+        if (enterpriseAccount == null) {
+            result.setStatus(ResultCode.error);
+            result.setDesc("账号不存在");
+            return result;
+        }
+        //判断密码是否正确
+        String salts = MD5CryptUtil.getSalts(enterpriseAccount.getPassword());
+        if (!Md5Crypt.md5Crypt(loginPass.getBytes(), salts).equals(enterpriseAccount.getPassword())) {
+            result.setStatus(ResultCode.error);
+            result.setDesc("密码错误");
+        }
+        //生成jwt令牌
+        HashMap<String, Object> tokenInfo = Maps.newHashMap();
+        tokenInfo.put("shopId", enterpriseAccount.getShopId());//商户id
+        tokenInfo.put("loginName", enterpriseAccount.getEnterpriseName());//用户名
+        tokenInfo.put("loginType", SystemCode.USER_TYPE_SHOP);//用户类型
+        String token = null;
+        try {
+            token = JWTUtil.createJWTByObj(tokenInfo, secret);
+        } catch (IOException e) {
+            e.printStackTrace();
+            result.setStatus(ResultCode.error);
+            result.setDesc("令牌生成失败");
+            return result;
+        }
+        //返回结果
+        result.setStatus(ResultCode.success);
+        result.setDesc("ok");
+        result.setData(enterpriseAccount);
+        result.setToken(token);
+        return result;
     }
 
     //获取shopId,随机8位数字
