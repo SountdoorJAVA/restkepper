@@ -13,6 +13,7 @@ import com.restkeeper.shop.entity.Store;
 import com.restkeeper.shop.entity.StoreManager;
 import com.restkeeper.shop.mapper.StoreManagerMapper;
 import com.restkeeper.sms.SmsObject;
+import com.restkeeper.tenant.TenantContext;
 import com.restkeeper.utils.JWTUtil;
 import com.restkeeper.utils.MD5CryptUtil;
 import com.restkeeper.utils.Result;
@@ -22,6 +23,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -163,6 +165,10 @@ public class StoreManagerServiceImpl extends ServiceImpl<StoreManagerMapper, Sto
         queryWrapper.lambda()
                 .eq(StoreManager::getStoreManagerPhone, phone)
                 .eq(StoreManager::getShopId, shopId);
+
+        //将shopId存放入RpcContext,当执行sql时,多租户功能会从RpcContext获取shopId,添加到sql中
+        RpcContext.getContext().setAttachment("shopId", shopId);
+
         StoreManager storeManager = this.getOne(queryWrapper);
         if (storeManager == null) {
             result.setStatus(ResultCode.error);
@@ -189,7 +195,7 @@ public class StoreManagerServiceImpl extends ServiceImpl<StoreManagerMapper, Sto
         //令牌生成
         Map<String, Object> tokenMap = Maps.newHashMap();
         tokenMap.put("shopId", shopId);
-        tokenMap.put("storeId", store.getStoreId());
+        tokenMap.put("storeId", store.getStoreId()); //登录后展示门店id为门店集合第一个
         tokenMap.put("loginUserId", storeManager.getStoreManagerId());
         tokenMap.put("loginUserName", storeManager.getStoreManagerName());
         tokenMap.put("userType", SystemCode.USER_TYPE_STORE_MANAGER); //门店管理员用户

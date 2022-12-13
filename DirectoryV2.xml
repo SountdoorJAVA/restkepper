@@ -17,4 +17,6 @@
           extension="java"/>
     <tree path="/restkeeper_web/restkeeper_enterprise_web" title="集团表现层"/>
     <tree path="/restkeeper_web/restkeeper_operator_web" title="管理表现层"/>
+    <tree path="/restkeeper_service/restkeeper_service_common/src/main/java/com/restkeeper/dubbo/DubboConsumerContextFilter.java"
+          title="消费者过滤器" extension="java"/>
 </trees>

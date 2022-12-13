@@ -28,7 +28,7 @@ public class TenantContext {
         return threadLocal.get();
     }
 
-    public static String getStorId() {
+    public static String getStoreId() {
         return String.valueOf(threadLocal.get().get("storeId"));
     }
 
