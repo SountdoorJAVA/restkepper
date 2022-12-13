@@ -1,7 +1,9 @@
 package com.restkeeper.controller.shop;
 
 import com.restkeeper.constants.SystemCode;
+import com.restkeeper.operator.service.IEnterpriseAccountService;
 import com.restkeeper.response.vo.PageVO;
+import com.restkeeper.shop.dto.StoreDTO;
 import com.restkeeper.shop.entity.Store;
 import com.restkeeper.shop.service.IStoreService;
 import com.restkeeper.vo.shop.AddStoreVO;
@@ -13,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author MORRIS --> Java
@@ -53,6 +57,20 @@ public class StoreController {
         Store store = storeService.getById(id);
         store.setStatus(SystemCode.FORBIDDEN);
         return storeService.updateById(store);
+    }
+
+    @ApiOperation(value = "获取门店省份信息")
+    @GetMapping("/listProvince")
+    @ResponseBody
+    public List<String> listProvince() {
+        return storeService.getAllProvince();
+    }
+
+    @ApiOperation(value = "根据省份获取门店列表")
+    @GetMapping("/getStoreByProvince/{province}")
+    @ResponseBody
+    public List<StoreDTO> getStoreByProvince(@PathVariable String province) {
+        return storeService.getStoreByProvince(province);
     }
 
     //通过id查询门店信息

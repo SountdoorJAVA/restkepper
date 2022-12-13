@@ -3,6 +3,7 @@ package com.restkeeper.operator.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.restkeeper.operator.entity.EnterpriseAccount;
+import com.restkeeper.utils.Result;
 
 /**
  * @author MORRIS --> Java
@@ -21,4 +22,7 @@ public interface IEnterpriseAccountService extends IService<EnterpriseAccount> {
 
     //重置密码
     boolean resetPwd(String id, String password);
+
+    //根据商铺id，账号，密码校验登录信息
+    Result login(String shopId, String telphone, String loginPass);
 }

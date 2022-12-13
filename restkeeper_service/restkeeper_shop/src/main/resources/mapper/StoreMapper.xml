@@ -5,8 +5,16 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.restkeeper.shop.entity.Store">
         <id column="store_id" property="storeId" />
+        <result column="shop_id" property="shopId" />
+        <result column="store_name" property="storeName" />
         <result column="brand_id" property="brandId" />
+        <result column="province" property="province" />
+        <result column="city" property="city" />
+        <result column="area" property="area" />
+        <result column="address" property="address" />
         <result column="store_manager_id" property="storeManagerId" />
+        <result column="last_update_time" property="lastUpdateTime" />
+        <association property="brand" column="brand_id" select="com.restkeeper.shop.mapper.BrandMapper.selectById"/>
     </resultMap>
 
 </mapper>

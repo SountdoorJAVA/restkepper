@@ -62,5 +62,7 @@ public class Store extends BaseShopEntity implements Serializable {
     @ApiModelProperty(value = "状态(正式运营1，停业0)")
     private Integer status;
 
-
+    @ApiModelProperty(value = "所属品牌对象")
+    @TableField(exist = false)
+    private Brand brand;
 }

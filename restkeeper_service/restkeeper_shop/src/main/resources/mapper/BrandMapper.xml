@@ -5,6 +5,16 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.restkeeper.shop.entity.Brand">
         <id column="brand_id" property="brandId" />
+        <result column="brand_name" property="brandName" />
+        <result column="logo" property="logo" />
+        <result column="category" property="category" />
+        <result column="shop_id" property="shopId" />
+        <result column="contact" property="contact" />
+        <result column="contact_phone" property="contactPhone" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="last_update_time" property="lastUpdateTime" />
+        <association property="storeCount" column="brand_id" select="com.restkeeper.shop.mapper.StoreMapper.getStoreCount"/>
+        <association property="cityCount" column="brand_id" select="com.restkeeper.shop.mapper.StoreMapper.getCityCount"/>
     </resultMap>
 
 </mapper>

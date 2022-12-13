@@ -23,6 +23,7 @@ public class LoginController {
     @Reference(version = "1.0.0", check = false)
     private IEnterpriseAccountService enterpriseAccountService;
 
+    //  string123  973229
     @ApiOperation(value = "登录入口")
     @ApiImplicitParam(name = "Authorization", value = "jwt token", required = false, dataType = "String", paramType = "header")
     @PostMapping("/login")

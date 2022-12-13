@@ -12,6 +12,12 @@
     <artifactId>restkeeper_enterprise_web</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alicloud-oss</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.restkeeper</groupId>
             <artifactId>restkeeper_web_common</artifactId>

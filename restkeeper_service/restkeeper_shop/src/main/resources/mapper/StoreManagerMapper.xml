@@ -5,6 +5,12 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.restkeeper.shop.entity.StoreManager">
         <id column="store_manager_id" property="storeManagerId" />
+        <result column="store_manager_name" property="storeManagerName" />
+        <result column="store_manager_phone" property="storeManagerPhone" />
+        <result column="shop_id" property="shopId" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="last_update_time" property="lastUpdateTime" />
+        <association property="stores" column="store_manager_id" select="com.restkeeper.shop.mapper.StoreMapper.selectStoreInfoByManagerId"/>
     </resultMap>
 
 </mapper>

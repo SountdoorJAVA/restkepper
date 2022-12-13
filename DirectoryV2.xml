@@ -8,4 +8,13 @@
      <tree path="/restkeeper_web/restkeeper_operator_web/src/main/java/com/restkeeper/operator/vo" title="视图对象"/>
      <tree path="/restkeeper_web/restkeeper_operator_web/src/main/java/com/restkeeper/operator/controller/EnterpriseAccountController.java"
            title="企业账户表现层" extension="java"/>
- </trees>
+     <tree path="/restkeeper_service/restkeeper_shop/src/main/java/com/restkeeper/shop/config/MybatisPlusTenantConfig.java"
+           title="多租户功能配置类" extension="java"/>
+     <tree path="/restkeeper_web/restkeeper_web_common/src/main/java/com/restkeeper/response/interceptor" title="拦截器"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/FileUploadController.java"
+          title="图片上传通用接口" extension="java"/>
+    <tree path="/restkeeper_common/src/main/java/com/restkeeper/tenant/TenantContext.java" title="租户上下文"
+          extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web" title="集团表现层"/>
+    <tree path="/restkeeper_web/restkeeper_operator_web" title="管理表现层"/>
+</trees>
