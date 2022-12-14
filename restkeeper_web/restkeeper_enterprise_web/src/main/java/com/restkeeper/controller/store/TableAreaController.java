@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author MORRIS --> Java
  * @date 2022-12-15 02:37:10
@@ -29,8 +31,14 @@ public class TableAreaController {
     }
 
     @ApiOperation(value = "更新区域")
-    @PostMapping("/updateArea/{id}")
+    @PutMapping("/updateArea/{id}")
     public boolean updateArea(@PathVariable String id, @RequestParam("name") String name) {
         return tableAreaService.update(id, name);
+    }
+
+    @ApiOperation(value = "区域列表")
+    @PutMapping("/areaList")
+    public List<TableArea> areaList() {
+        return tableAreaService.list();
     }
 }
