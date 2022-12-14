@@ -4,6 +4,7 @@ import com.aliyun.oss.OSSClient;
 import com.restkeeper.utils.Result;
 import com.restkeeper.utils.ResultCode;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,18 @@ public class FileUploadController {
             result.setDesc("文件上传失败");
             return result;
         }
+    }
+
+    @PostMapping(value = "/imageUploadResize")
+    @ApiImplicitParam(paramType = "form", dataType = "file", name = "fileName", value = "上传文件", required = true)
+    public String imageUploadResize(@RequestParam("fileName") MultipartFile file) {
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        try {
+            ossClient.putObject(bucketName, fileName, file.getInputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String imagePath = "https://" + bucketName + "." + endpoint + "/" + fileName + "?x-oss-process=image/resize,m_fill,h_100,w_200";
+        return imagePath;
     }
 }
