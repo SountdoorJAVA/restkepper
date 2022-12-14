@@ -15,8 +15,8 @@
           title="图片上传通用接口" extension="java"/>
     <tree path="/restkeeper_common/src/main/java/com/restkeeper/tenant/TenantContext.java" title="租户上下文"
           extension="java"/>
-    <tree path="/restkeeper_web/restkeeper_enterprise_web" title="集团表现层"/>
-    <tree path="/restkeeper_web/restkeeper_operator_web" title="管理表现层"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web" title=""/>
+    <tree path="/restkeeper_web/restkeeper_operator_web" title=""/>
     <tree path="/restkeeper_service/restkeeper_service_common/src/main/java/com/restkeeper/dubbo/DubboConsumerContextFilter.java"
           title="消费者过滤器" extension="java"/>
     <tree path="/restkeeper_service/restkeeper_store/src/main/java/com/restkeeper/store/config/MybatisPlusTenantConfig.java"
