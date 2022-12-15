@@ -29,4 +29,12 @@ public class PageVO<T> {
         this.pages = page.getPages();
         this.items = page.getRecords();
     }
+    //支持自定义列表
+    public PageVO(IPage page,List<T> items) {
+        this.pagesize = page.getSize();
+        this.counts = page.getTotal();
+        this.page = page.getCurrent();
+        this.pages = page.getPages();
+        this.items = items;
+    }
 }
