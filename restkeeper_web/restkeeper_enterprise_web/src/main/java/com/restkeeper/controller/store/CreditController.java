@@ -10,10 +10,13 @@ import com.restkeeper.response.vo.PageVO;
 import com.restkeeper.store.entity.Credit;
 import com.restkeeper.store.entity.CreditCompanyUser;
 import com.restkeeper.store.entity.CreditLogs;
+import com.restkeeper.store.entity.CreditRepayment;
 import com.restkeeper.store.service.ICreditLogService;
+import com.restkeeper.store.service.ICreditRepaymentService;
 import com.restkeeper.store.service.ICreditService;
 import com.restkeeper.utils.BeanListUtils;
 import com.restkeeper.vo.store.CreditLogExcelVO;
+import com.restkeeper.vo.store.CreditRepaymentVO;
 import com.restkeeper.vo.store.CreditVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -162,5 +165,16 @@ public class CreditController {
         response.setCharacterEncoding("utf-8");
         response.setHeader("Content-disposition", "attachment;filename=order.xlsx");
         EasyExcel.write(response.getOutputStream(), CreditLogExcelVO.class).sheet("模板").doWrite(data);
+    }
+
+    @Reference(version = "1.0.0", check = false)
+    private ICreditRepaymentService creditRepaymentService;
+
+    @ApiOperation(value = "还款")
+    @PostMapping("/repayment")
+    public boolean repayment(@RequestBody CreditRepaymentVO creditRepaymentVo) {
+        CreditRepayment creditRepayment = new CreditRepayment();
+        BeanUtils.copyProperties(creditRepaymentVo, creditRepayment);
+        return creditRepaymentService.repayment(creditRepayment);
     }
 }
