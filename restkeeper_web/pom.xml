@@ -14,6 +14,7 @@
     <modules>
         <module>restkeeper_web_common</module>
         <module>restkeeper_operator_web</module>
+        <module>restkeeper_cash_web</module>
     </modules>
 
     <dependencies>

@@ -41,4 +41,5 @@ public class TableAreaController {
     public List<TableArea> areaList() {
         return tableAreaService.list();
     }
+
 }

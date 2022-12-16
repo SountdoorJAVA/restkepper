@@ -32,6 +32,13 @@ public class TableServiceImpl extends ServiceImpl<TableMapper, Table> implements
         return this.page(page, qw);
     }
 
+    @Override
+    public Integer countTableByStatus(String areaId, Integer status) {
+        QueryWrapper<Table> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Table::getAreaId, areaId).eq(Table::getStatus, status);
+        return this.count(queryWrapper);
+    }
+
     private void checkNameExist(String tableName) {
         QueryWrapper<Table> qw = new QueryWrapper<>();
         qw.lambda().select(Table::getTableId).eq(Table::getTableName, tableName);

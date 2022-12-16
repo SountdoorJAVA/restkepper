@@ -9,6 +9,9 @@ import lombok.val;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 @org.springframework.stereotype.Service("tableAreaService")
 @Service(version = "1.0.0", protocol = "dubbo")
 public class TableAreaServiceImpl extends ServiceImpl<TableAreaMapper, TableArea> implements ITableAreaService {
@@ -32,6 +35,16 @@ public class TableAreaServiceImpl extends ServiceImpl<TableAreaMapper, TableArea
         //更新区域
         return this.updateById(tableArea);
     }
+
+    @Override
+    public List<Map<String, Object>> listTableArea() {
+        QueryWrapper<TableArea> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .select(TableArea::getAreaId, TableArea::getAreaName)
+                .orderByDesc(TableArea::getIndexNumber);
+        return this.listMaps(queryWrapper);
+    }
+
 
     private void checkNameExist(String areaName) {
         QueryWrapper<TableArea> qw = new QueryWrapper<>();

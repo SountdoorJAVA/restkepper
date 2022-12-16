@@ -12,13 +12,44 @@
            title="shop多租户功能配置类" extension="java"/>
      <tree path="/restkeeper_web/restkeeper_web_common/src/main/java/com/restkeeper/response/interceptor" title="拦截器"/>
     <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/FileUploadController.java"
-          title="图片上传通用接口" extension="java"/>
+          title="图片上传" extension="java"/>
     <tree path="/restkeeper_common/src/main/java/com/restkeeper/tenant/TenantContext.java" title="租户上下文"
           extension="java"/>
-    <tree path="/restkeeper_web/restkeeper_enterprise_web" title=""/>
-    <tree path="/restkeeper_web/restkeeper_operator_web" title=""/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web" title="企业表现层"/>
+    <tree path="/restkeeper_web/restkeeper_operator_web" title="系统表现层"/>
     <tree path="/restkeeper_service/restkeeper_service_common/src/main/java/com/restkeeper/dubbo/DubboConsumerContextFilter.java"
           title="消费者过滤器" extension="java"/>
     <tree path="/restkeeper_service/restkeeper_store/src/main/java/com/restkeeper/store/config/MybatisPlusTenantConfig.java"
           title="store多租户功能配置类" extension="java"/>
+    <tree path="/restkeeper_service/restkeeper_store" title="门店实现层"/>
+    <tree path="/restkeeper_service/restkeeper_shop" title="商户实现层"/>
+    <tree path="/restkeeper_service/restkeeper_operator" title="系统实现层"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/shop" title="商户表现层"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store" title="门店表现层"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store/TableController.java"
+          title="桌台" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store/TableAreaController.java"
+          title="桌台区域" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store/StaffController.java"
+          title="员工" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store/SettingsController.java"
+          title="门店设置-备注" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store/SetMealController.java"
+          title="套餐" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store/DishController.java"
+          title="菜品" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store/DishCategoryController.java"
+          title="菜品分类" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store/CreditController.java"
+          title="挂账" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/LoginController.java"
+          title="登录" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/shop/BrandController.java"
+          title="品牌" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/shop/StoreController.java"
+          title="门店" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/shop/StoreManagerController.java"
+          title="店长" extension="java"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/vo" title="包装类"/>
+    <tree path="/restkeeper_web/restkeeper_cash_web" title="收银表现层"/>
 </trees>
