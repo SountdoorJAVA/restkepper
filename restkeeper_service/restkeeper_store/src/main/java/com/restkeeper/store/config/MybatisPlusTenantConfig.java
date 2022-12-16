@@ -1,5 +1,7 @@
 package com.restkeeper.store.config;
 
+import com.baomidou.mybatisplus.core.parser.ISqlParserFilter;
+import com.baomidou.mybatisplus.core.parser.SqlParserHelper;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
@@ -7,6 +9,8 @@ import com.google.common.collect.Lists;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
 import org.apache.dubbo.rpc.RpcContext;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -43,11 +47,13 @@ public class MybatisPlusTenantConfig {
                 }
                 return new StringValue(shopId);
             }
+
             //当前租户id对应的表字段
             @Override
             public String getTenantIdColumn() {
                 return SYSTEM_TENANT_ID;
             }
+
             //表级过滤器
             @Override
             public boolean doTableFilter(String tableName) {
@@ -65,11 +71,13 @@ public class MybatisPlusTenantConfig {
                 }
                 return new StringValue(shopId);
             }
+
             //当前租户id对应的表字段
             @Override
             public String getTenantIdColumn() {
                 return SYSTEM_TENANT_ID2;
             }
+
             //表级过滤器
             @Override
             public boolean doTableFilter(String tableName) {
@@ -78,6 +86,20 @@ public class MybatisPlusTenantConfig {
         });
 
         paginationInterceptor.setSqlParserList(Lists.newArrayList(tenantSqlParser_shop, tenantSqlParser_store));
+
+        //自定义忽略多租户的操作方法
+        paginationInterceptor.setSqlParserFilter(new ISqlParserFilter() {
+            @Override
+            public boolean doFilter(MetaObject metaObject) {
+                MappedStatement ms = SqlParserHelper.getMappedStatement(metaObject);
+                //过滤自定义查询,此时无租户信息约束
+                if ("com.restkeeper.store.mapper.StaffMapper.login".equals(ms.getId())) {
+                    return true;
+                }
+                return false;
+            }
+        });
+
         return paginationInterceptor;
     }
 }
