@@ -130,42 +130,42 @@ public class CreditController {
         return new PageVO<CreditLogs>(creditLogService.queryPage(creditId, page, pageSize));
     }
 
-    @GetMapping("/export/creditId/{creditId}/start/{start}/end/{end}")
-    public void export(HttpServletResponse response,
-                       @PathVariable(value = "creditId") String creditId,
-                       @PathVariable(value = "start") String start,
-                       @PathVariable(value = "end") String end) throws IOException {
-        //String -> LocalDateTime
-        val startTime = LocalDateTime.parse(start);
-        val endTime = LocalDateTime.parse(end);
-        if (endTime.isBefore(startTime)) {
-            throw new BussinessException("时间异常");
-        }
-
-        val data = creditLogService.list(creditId, startTime, endTime)
-                .stream()
-                .map(creditLogs -> {
-                    //实体类信息的转换 CreditLogs -> CreditLogExcelVO
-                    val creditLogExcelVO = new CreditLogExcelVO();
-                    creditLogExcelVO.setDateTime(Date.from(creditLogs.getLastUpdateTime().atZone(ZoneId.systemDefault()).toInstant()));
-                    creditLogExcelVO.setOrderAmount(creditLogs.getOrderAmount());
-                    creditLogExcelVO.setRevenueAmount(creditLogs.getReceivedAmount());
-                    creditLogExcelVO.setUserName(creditLogs.getUserName());
-                    creditLogExcelVO.setOrderId(creditLogs.getOrderId());
-                    if (creditLogs.getType() == SystemCode.CREDIT_TYPE_COMPANY) {
-                        creditLogExcelVO.setCreditType("企业");
-                    } else {
-                        creditLogExcelVO.setCreditType("个人");
-                    }
-                    return creditLogExcelVO;
-                }).collect(Collectors.toList());
-
-        //设置头信息,完成下载工作
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
-        response.setHeader("Content-disposition", "attachment;filename=order.xlsx");
-        EasyExcel.write(response.getOutputStream(), CreditLogExcelVO.class).sheet("模板").doWrite(data);
-    }
+    //@GetMapping("/export/creditId/{creditId}/start/{start}/end/{end}")
+    //public void export(HttpServletResponse response,
+    //                   @PathVariable(value = "creditId") String creditId,
+    //                   @PathVariable(value = "start") String start,
+    //                   @PathVariable(value = "end") String end) throws IOException {
+    //    //String -> LocalDateTime
+    //    val startTime = LocalDateTime.parse(start);
+    //    val endTime = LocalDateTime.parse(end);
+    //    if (endTime.isBefore(startTime)) {
+    //        throw new BussinessException("时间异常");
+    //    }
+    //
+    //    val data = creditLogService.list(creditId, startTime, endTime)
+    //            .stream()
+    //            .map(creditLogs -> {
+    //                //实体类信息的转换 CreditLogs -> CreditLogExcelVO
+    //                val creditLogExcelVO = new CreditLogExcelVO();
+    //                creditLogExcelVO.setDateTime(Date.from(creditLogs.getLastUpdateTime().atZone(ZoneId.systemDefault()).toInstant()));
+    //                creditLogExcelVO.setOrderAmount(creditLogs.getOrderAmount());
+    //                creditLogExcelVO.setRevenueAmount(creditLogs.getReceivedAmount());
+    //                creditLogExcelVO.setUserName(creditLogs.getUserName());
+    //                creditLogExcelVO.setOrderId(creditLogs.getOrderId());
+    //                if (creditLogs.getType() == SystemCode.CREDIT_TYPE_COMPANY) {
+    //                    creditLogExcelVO.setCreditType("企业");
+    //                } else {
+    //                    creditLogExcelVO.setCreditType("个人");
+    //                }
+    //                return creditLogExcelVO;
+    //            }).collect(Collectors.toList());
+    //
+    //    //设置头信息,完成下载工作
+    //    response.setContentType("application/vnd.ms-excel");
+    //    response.setCharacterEncoding("utf-8");
+    //    response.setHeader("Content-disposition", "attachment;filename=order.xlsx");
+    //    EasyExcel.write(response.getOutputStream(), CreditLogExcelVO.class).sheet("模板").doWrite(data);
+    //}
 
     @Reference(version = "1.0.0", check = false)
     private ICreditRepaymentService creditRepaymentService;

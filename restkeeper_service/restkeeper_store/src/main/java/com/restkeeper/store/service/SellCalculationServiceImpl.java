@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.restkeeper.store.entity.SellCalculation;
 import com.restkeeper.store.mapper.SellCalculationMapper;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @org.springframework.stereotype.Service("sellCalculationService")
 @Service(version = "1.0.0", protocol = "dubbo")
@@ -19,5 +20,21 @@ public class SellCalculationServiceImpl extends ServiceImpl<SellCalculationMappe
             return -1;
         }
         return sellCalculation.getRemainder();
+    }
+
+    @Override
+    @Transactional
+    public void decrease(String dishId, Integer dishNumber) {
+        QueryWrapper<SellCalculation> qw = new QueryWrapper<>();
+        qw.lambda().eq(SellCalculation::getDishId, dishId);
+        SellCalculation sellCalculation = this.getOne(qw);
+        if (sellCalculation != null) {
+            int i = sellCalculation.getSellLimitTotal() - dishNumber;
+            if (i < 0) {
+                i = 0;
+            }
+            sellCalculation.setSellLimitTotal(i);
+            this.updateById(sellCalculation);
+        }
     }
 }

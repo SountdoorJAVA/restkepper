@@ -80,6 +80,9 @@ public class UserController {
     @PostMapping("/login")
     @ApiImplicitParam(name = "Authorization", value = "jwt token", required = false, dataType = "String", paramType = "header")
     public Result login(@RequestBody LoginVO loginVO) {
+        System.out.println("-------------controller----------------");
+        System.out.println("-----------------------------");
+        System.out.println(Thread.currentThread().getName());
         log.info(loginVO.getLoginName() + " " + loginVO.getLoginPass());
         return operatorUserService.login(loginVO.getLoginName(), loginVO.getLoginPass());
     }

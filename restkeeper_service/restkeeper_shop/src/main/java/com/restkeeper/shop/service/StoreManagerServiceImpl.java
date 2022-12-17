@@ -141,6 +141,11 @@ public class StoreManagerServiceImpl extends ServiceImpl<StoreManagerMapper, Sto
 
     @Override
     public Result login(String shopId, String phone, String loginPass) {
+
+        System.out.println("-------------StoreManagerService----------------");
+        System.out.println("-----------------------------");
+        System.out.println(Thread.currentThread().getName());
+
         Result result = new Result();
 
         //参数校验

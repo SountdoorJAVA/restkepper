@@ -81,6 +81,8 @@ public class EnterpriseAccountServiceImpl extends ServiceImpl<EnterpriseAccountM
             account.setShopId(shopId);
             //密码随机6位
             String pwd = RandomStringUtils.randomNumeric(6);
+            System.out.println("企业账号 秘密");
+            System.out.println(account.getEnterpriseName() + " " + pwd);
             account.setPassword(Md5Crypt.md5Crypt(pwd.getBytes()));
             this.save(account);
             //发送短信

@@ -34,6 +34,11 @@ public class SystemCode {
     public final static int TABLE_STATUS_LOCKED = 1; // 1 锁定
     public final static int TABLE_STATUS_OPEND = 2; // 2 已开桌
 
-
+    // 订单状态 0：未付 1：已付
+    public final static int ORDER_STATUS_NOTPAY = 0;
+    public final static int ORDER_STATUS_PAYED = 1;
+    // 订单来源 0 门店 1 app
+    public final static int ORDER_SOURCE_STORE = 0;
+    public final static int ORDER_SOURCE_APP = 1;
     public final static String DICTIONARY_REMARK = "remark"; //字典表备注类型
 }

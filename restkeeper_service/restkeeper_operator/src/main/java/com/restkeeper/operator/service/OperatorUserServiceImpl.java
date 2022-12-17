@@ -8,12 +8,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Maps;
 import com.restkeeper.operator.entity.OperatorUser;
 import com.restkeeper.operator.mapper.OperatorUserMapper;
+import com.restkeeper.shop.service.IStoreManagerService;
 import com.restkeeper.utils.JWTUtil;
 import com.restkeeper.utils.MD5CryptUtil;
 import com.restkeeper.utils.Result;
 import com.restkeeper.utils.ResultCode;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang.StringUtils;
+import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -52,6 +54,11 @@ public class OperatorUserServiceImpl extends ServiceImpl<OperatorUserMapper, Ope
 
     @Override
     public Result login(String loginName, String loginPass) {
+        System.out.println("-------------OperatorUserService----------------");
+        System.out.println("-----------------------------");
+        System.out.println(Thread.currentThread().getName());
+
+
         System.out.println("loginName=" + loginName + " loginPass=" + loginPass);
         Result result = new Result();
         //参数校验

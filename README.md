@@ -5,4 +5,4 @@ rabbitmq:http://192.168.200.128:15672/#/
 
 nacos:http://192.168.200.128:8848/nacos/
 
-swagger:http://localhost:8081/swagger-ui.html
+swagger:http://localhost:8085/swagger-ui.html

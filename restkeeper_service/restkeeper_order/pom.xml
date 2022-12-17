@@ -9,27 +9,19 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>restkeeper_operator</artifactId>
+    <artifactId>restkeeper_order</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.restkeeper</groupId>
-            <artifactId>restkeeper_operator_api</artifactId>
+            <artifactId>restkeeper_order_api</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
         <dependency>
             <groupId>com.restkeeper</groupId>
-            <artifactId>restkeeper_shop_api</artifactId>
+            <artifactId>restkeeper_store_api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-		<!--web依赖，结合dubbo后删除-->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>-->
     </dependencies>
+
 </project>

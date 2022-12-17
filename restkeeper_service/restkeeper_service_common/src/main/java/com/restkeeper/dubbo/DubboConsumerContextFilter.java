@@ -16,9 +16,6 @@ import org.apache.dubbo.rpc.*;
 public class DubboConsumerContextFilter implements Filter {
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-        /*log.info("shopId------------" + RpcContext.getContext().getAttachment("shopId"));
-        log.info("ThreadName---------" + Thread.currentThread().getName());*/
-
         //从自定义的上下文类中获取到令牌的相关信息,然后存入到RpcContext
         RpcContext.getContext().setAttachment("shopId", TenantContext.getShopId());
         RpcContext.getContext().setAttachment("loginUserId", TenantContext.getLoginUserId());
