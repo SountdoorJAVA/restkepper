@@ -52,4 +52,5 @@
           title="店长" extension="java"/>
     <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/vo" title="包装类"/>
     <tree path="/restkeeper_web/restkeeper_cash_web" title="收银表现层"/>
+    <tree path="/restkeeper_service/restkeeper_es" title="es搜索实现层"/>
 </trees>

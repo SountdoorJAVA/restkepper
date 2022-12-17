@@ -37,4 +37,7 @@ public class PageVO<T> {
         this.pages = page.getPages();
         this.items = items;
     }
+
+    public PageVO() {
+    }
 }

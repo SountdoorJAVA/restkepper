@@ -15,7 +15,13 @@
         <module>restkeeper_service_common</module>
         <module>restkeeper_operator</module>
         <module>restkeeper_operator_api</module>
+        <module>restkeeper_shop</module>
+        <module>restkeeper_shop_api</module>
         <module>restkeeper_service_mq</module>
+        <module>restkeeper_store</module>
+        <module>restkeeper_store_api</module>
+        <module>restkeeper_es</module>
+        <module>restkeeper_es_api</module>
     </modules>
 
 
