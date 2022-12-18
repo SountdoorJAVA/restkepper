@@ -9,4 +9,5 @@ public class RabbitmqSpringbootApplication {
     public static void main(String[] args) {
         SpringApplication.run(RabbitmqSpringbootApplication.class, args);
     }
+
 }

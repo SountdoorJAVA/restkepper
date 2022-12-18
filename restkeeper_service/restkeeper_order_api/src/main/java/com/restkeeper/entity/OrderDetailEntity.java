@@ -72,6 +72,8 @@ public class OrderDetailEntity extends  BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "退菜备注")
     private String returnRemark;
+    @ApiModelProperty(value = "加菜备注")
+    private String addRemark;
 
     @ApiModelProperty(value = "折扣备注")
     private String discountRemark;

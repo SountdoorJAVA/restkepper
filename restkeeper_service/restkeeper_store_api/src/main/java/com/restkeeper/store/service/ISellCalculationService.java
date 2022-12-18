@@ -8,4 +8,6 @@ public interface ISellCalculationService extends IService<SellCalculation> {
 
     //扣减
     void decrease(String dishId, Integer dishNumber);
+
+    void add(String dishId, int i);
 }

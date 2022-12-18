@@ -30,6 +30,7 @@ public class SmsMessageListener {
         //发送短信
         //SendSmsResponse sendSmsResponse = this.sendSms(smsObject.getPhoneNumber(), smsObject.getSignName(), smsObject.getTemplateCode(), smsObject.getTemplateJsonParam());
         //log.info(JSON.toJSONString(sendSmsResponse));
+
     }
 
     //发送短信

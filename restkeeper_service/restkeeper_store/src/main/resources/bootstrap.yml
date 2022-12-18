@@ -12,3 +12,8 @@ spring:
         file-extension: yml
         shared-dataids: common.yml
         refreshable-dataids: common.yml
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata-tx-service-group
+server:
+  port: 9991

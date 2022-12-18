@@ -66,5 +66,10 @@
             <version>4.0.2</version>
         </dependency>
         <!-- dubbo 集成 end-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
     </dependencies>
 </project>

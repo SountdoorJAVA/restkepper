@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @MapperScan("com.restkeeper.store.mapper")
-@SpringBootApplication(scanBasePackages = {"com.restkeeper"})
+@SpringBootApplication(scanBasePackages = {"com.restkeeper"}, exclude = {DataSourceAutoConfiguration.class})
 public class StoreProviderApplication {
 
     public static void main(String[] args) {
