@@ -54,4 +54,6 @@
     <tree path="/restkeeper_web/restkeeper_cash_web" title="收银表现层"/>
     <tree path="/restkeeper_service/restkeeper_es" title="es搜索实现层"/>
     <tree path="/restkeeper_service/restkeeper_order" title="订单实现层"/>
+    <tree path="/restkeeper_web/restkeeper_enterprise_web/src/main/java/com/restkeeper/controller/store/ReportController.java"
+          title="报表" extension="java"/>
 </trees>
