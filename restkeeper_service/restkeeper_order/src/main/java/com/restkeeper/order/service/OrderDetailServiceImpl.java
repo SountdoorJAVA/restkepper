@@ -47,4 +47,20 @@ public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, Order
 
         return orderDetailAllMapper.selectList(wrapper);
     }
+
+    //获取当日菜品销售排行  按菜品名分组统计销售
+    //select dish_name,SUM(dish_number) from v_order_detail_all GROUP BY dish_name
+    @Override
+    public List<OrderDetailAllView> getCurrentDishRank(LocalDate start, LocalDate end) {
+        QueryWrapper<OrderDetailAllView> wrapper = new QueryWrapper<>();
+        wrapper.select("dish_name", "SUM(dish_number) as total_count")
+                .lambda()
+                .ge(OrderDetailAllView::getLastUpdateTime, start)
+                .lt(OrderDetailAllView::getLastUpdateTime, end)
+                .eq(OrderDetailAllView::getDishType, 1)
+                .groupBy(OrderDetailAllView::getDishName);
+        wrapper.orderByDesc("total_count");
+
+        return orderDetailAllMapper.selectList(wrapper);
+    }
 }

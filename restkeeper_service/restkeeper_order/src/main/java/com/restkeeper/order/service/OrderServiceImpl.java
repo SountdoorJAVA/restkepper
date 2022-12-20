@@ -8,10 +8,7 @@ import com.restkeeper.aop.TenantAnnotation;
 import com.restkeeper.constants.OrderDetailType;
 import com.restkeeper.constants.OrderPayType;
 import com.restkeeper.constants.SystemCode;
-import com.restkeeper.dto.CreditDTO;
-import com.restkeeper.dto.CurrentAmountCollectDTO;
-import com.restkeeper.dto.CurrentHourCollectDTO;
-import com.restkeeper.dto.DetailDTO;
+import com.restkeeper.dto.*;
 import com.restkeeper.entity.OrderDetailEntity;
 import com.restkeeper.entity.OrderDetailMealEntity;
 import com.restkeeper.entity.OrderEntity;
@@ -397,6 +394,52 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderEntity> impl
         }
         //经过遍历,结果集中所需记录已补全,现在需要根据时间从小到大进行排序
         result.sort((a, b) -> Integer.compare(a.getCurrentDateHour(), b.getCurrentDateHour()));
+
+        return result;
+    }
+
+    //根据支付类型分组 统计支付笔数
+    //SELECT pay_type,sum(pay_amount) from t_order WHERE pay_status=1 GROUP BY pay_type
+    @Override
+    public List<PayTypeCollectDTO> getPayTypeCollect(LocalDate start, LocalDate end) {
+        List<PayTypeCollectDTO> result = Lists.newArrayList();
+
+        QueryWrapper<OrderEntity> wrapper = new QueryWrapper<>();
+        wrapper.select("pay_type", "sum(pay_amount) as total_amount")
+                .lambda().ge(OrderEntity::getLastUpdateTime, start)
+                .lt(OrderEntity::getLastUpdateTime, end)
+                .eq(OrderEntity::getPayStatus, SystemCode.ORDER_STATUS_PAYED)
+                .groupBy(OrderEntity::getPayType);
+        List<OrderEntity> orderEntityList = this.getBaseMapper().selectList(wrapper);
+
+        orderEntityList.forEach(orderEntity -> {
+
+            PayTypeCollectDTO payTypeCollectDTO = new PayTypeCollectDTO();
+
+            payTypeCollectDTO.setPayType(orderEntity.getPayType());
+            payTypeCollectDTO.setPayName(PayType.getName(orderEntity.getPayType()));
+            payTypeCollectDTO.setTotalCount(orderEntity.getTotalAmount());
+            result.add(payTypeCollectDTO);
+        });
+
+        return result;
+    }
+
+    //优惠金额汇总 统计优惠金额
+    //SELECT sum(present_amount) as present_amount,sum(free_amount) as free_amount,sum(small_amount) as small_amount from t_order WHERE pay_status=1
+    @Override
+    public PrivilegeDTO getPrivilegeCollect(LocalDate start, LocalDate end) {
+        QueryWrapper<OrderEntity> wrapper = new QueryWrapper<>();
+        wrapper.select("sum(present_amount) as present_amount","sum(free_amount) as free_amount","sum(small_amount) as small_amount")
+                .lambda()
+                .ge(OrderEntity::getLastUpdateTime,start)
+                .lt(OrderEntity::getLastUpdateTime,end)
+                .eq(OrderEntity::getPayStatus,1);
+        OrderEntity orderEntity = this.baseMapper.selectOne(wrapper);
+        PrivilegeDTO result = new PrivilegeDTO();
+        result.setFreeAmount(orderEntity.getFreeAmount());
+        result.setPresentAmount(orderEntity.getPresentAmount());
+        result.setSmallAmount(orderEntity.getSmallAmount());
 
         return result;
     }

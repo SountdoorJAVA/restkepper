@@ -46,6 +46,12 @@
             <artifactId>restkeeper_order_api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.restkeeper</groupId>
+            <artifactId>restkeeper_service_job</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

@@ -1,10 +1,7 @@
 package com.restkeeper.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.restkeeper.dto.CreditDTO;
-import com.restkeeper.dto.CurrentAmountCollectDTO;
-import com.restkeeper.dto.CurrentHourCollectDTO;
-import com.restkeeper.dto.DetailDTO;
+import com.restkeeper.dto.*;
 import com.restkeeper.entity.OrderEntity;
 
 import java.time.LocalDate;
@@ -32,4 +29,9 @@ public interface IOrderService extends IService<OrderEntity> {
     //统计24小时销售数据 统计类型 1:销售额;2:销售数量
     List<CurrentHourCollectDTO> getCurrentHourCollect(LocalDate start, LocalDate end, Integer type);
 
+    //获取收款方式构成汇总数据
+    List<PayTypeCollectDTO> getPayTypeCollect(LocalDate start, LocalDate end);
+
+    //优惠金额汇总
+    PrivilegeDTO getPrivilegeCollect(LocalDate start,LocalDate end);
 }

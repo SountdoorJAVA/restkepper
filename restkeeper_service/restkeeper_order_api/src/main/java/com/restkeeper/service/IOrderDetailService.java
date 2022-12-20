@@ -19,4 +19,7 @@ public interface IOrderDetailService extends IService<OrderDetailEntity> {
      * @return
      */
     List<OrderDetailAllView> getCurrentCategoryCountCollect(LocalDate start,LocalDate end);
+
+    //获取当日菜品销售排行
+    List<OrderDetailAllView> getCurrentDishRank(LocalDate start,LocalDate end);
 }

@@ -24,6 +24,7 @@
         <module>restkeeper_es_api</module>
         <module>restkeeper_order</module>
         <module>restkeeper_order_api</module>
+        <module>restkeeper_service_job</module>
     </modules>
 
 
